@@ -3,10 +3,12 @@ package com.tastebloomprototype.tastebloomapplication.Service;
 import com.tastebloomprototype.tastebloomapplication.Data.Model.User;
 import com.tastebloomprototype.tastebloomapplication.Data.Repository.UserRepository;
 import com.tastebloomprototype.tastebloomapplication.Dto.request.EmailDetails;
+import com.tastebloomprototype.tastebloomapplication.Dto.request.LoginRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.request.UserRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.response.TasteBloomResponse;
 import com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +19,7 @@ public class UserServiceImplementation implements UserService{
 
     @Autowired
     EmailService emailService;
+
 
     @Override
     public TasteBloomResponse createUser(UserRequest userRequest) {
@@ -56,7 +59,17 @@ public class UserServiceImplementation implements UserService{
 
     }
 
+    @Override
+    public Boolean loginUser(LoginRequest loginRequest) {
+        User user = userRepository.findByEmail(loginRequest.getEmail());
 
+        if( user == null) {
+            return false;
+
+        }
+        return loginRequest.getPassword().equals(user.getPassword());
+//        return passwordEncoder.matches(loginRequest.getPassword(),user.getPassword());
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.tastebloomprototype.tastebloomapplication.Service;
 
 import com.tastebloomprototype.tastebloomapplication.Data.Model.User;
 import com.tastebloomprototype.tastebloomapplication.Data.Repository.UserRepository;
+import com.tastebloomprototype.tastebloomapplication.Dto.request.LoginRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.request.UserRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.response.TasteBloomResponse;
 import com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils;
@@ -35,6 +36,10 @@ class UserServiceImplementationTest {
         userRequest.setName("mofe");
         userRequest.setPassword("900021");
         userRequest.setPhoneNumber("91290234521");
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("utieyionealero@yahoo.com");
+        loginRequest.setPassword("900021");
 
         userRepository.deleteAll();
     }
@@ -72,6 +77,24 @@ class UserServiceImplementationTest {
     }
 
 
+    @Test
+    public void testThatUserCanLogin() {
+
+        TasteBloomResponse response = userService.createUser(userRequest);
+        assertEquals(TasteBloomUtils.User_Created_Successfully, response.getResponseCode());
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("utieyionealero@yahoo.com");
+        loginRequest.setPassword("900021");
+
+        boolean loginSuccessful = userService.loginUser(loginRequest);
+        assertNotNull(loginSuccessful);
+        assertEquals(true, loginSuccessful);
+    }
+
+
 
 
 }
+
+
