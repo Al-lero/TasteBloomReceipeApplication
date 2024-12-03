@@ -1,12 +1,14 @@
 package com.tastebloomprototype.tastebloomapplication.Service;
 
+import com.tastebloomprototype.tastebloomapplication.Data.Model.Recipe;
 import com.tastebloomprototype.tastebloomapplication.Data.Model.User;
+import com.tastebloomprototype.tastebloomapplication.Data.Repository.RecipeRepository;
 import com.tastebloomprototype.tastebloomapplication.Data.Repository.UserRepository;
 import com.tastebloomprototype.tastebloomapplication.Dto.request.LoginRequest;
+import com.tastebloomprototype.tastebloomapplication.Dto.request.RecipeRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.request.UserRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.response.TasteBloomResponse;
 import com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils;
-import lombok.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,13 @@ class UserServiceImplementationTest {
     private EmailService emailService;
     private UserRequest userRequest;
 
+    private RecipeRequest recipeRequest;
+
+    @Autowired
+    private RecipeRepository recipeRepository;
+
+    private RecipeService recipeService;
+
     @BeforeEach
     public void setup(){
         userRequest  = new UserRequest();
@@ -40,6 +49,11 @@ class UserServiceImplementationTest {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("utieyionealero@yahoo.com");
         loginRequest.setPassword("900021");
+
+        recipeRequest = new RecipeRequest();
+        recipeRequest.setName("Fluffy Pancakes");
+        recipeRequest.setIngredients("Flour, Eggs, Milk, Sugar, Butter");
+        recipeRequest.setDescription("1. Mix ingredients. 2. Cook on pan until golden brown.");
 
         userRepository.deleteAll();
     }
@@ -91,6 +105,23 @@ class UserServiceImplementationTest {
         assertNotNull(loginSuccessful);
         assertEquals(true, loginSuccessful);
     }
+
+
+    @Test
+    public void testUserCanCreateReceipe(){
+
+        TasteBloomResponse response = recipeService.createRecipe(recipeRequest);
+
+         assertEquals("RECIPE_CREATED_SUCCESSFULLY", response.getResponseCode());
+         assertEquals("Recipe created successfully", response.getResponseMessage());
+
+         Recipe savedRecipe = recipeRepository.findAll().get(0);
+         assertNotNull(savedRecipe);
+         assertEquals(recipeRequest.getName(), savedRecipe.getName());
+         assertEquals(recipeRequest.getIngredients(), savedRecipe.getIngredients());
+         assertEquals(recipeRequest.getInstructions(), savedRecipe.getInstructions());
+    }
+
 
 
 

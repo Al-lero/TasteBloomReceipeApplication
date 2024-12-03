@@ -8,7 +8,7 @@ import com.tastebloomprototype.tastebloomapplication.Dto.request.UserRequest;
 import com.tastebloomprototype.tastebloomapplication.Dto.response.TasteBloomResponse;
 import com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -68,7 +68,6 @@ public class UserServiceImplementation implements UserService{
 
         }
         return loginRequest.getPassword().equals(user.getPassword());
-//        return passwordEncoder.matches(loginRequest.getPassword(),user.getPassword());
     }
 
 
