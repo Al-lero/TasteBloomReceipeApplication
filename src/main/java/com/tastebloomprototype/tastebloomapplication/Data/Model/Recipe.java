@@ -1,9 +1,7 @@
 package com.tastebloomprototype.tastebloomapplication.Data.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.tastebloomprototype.tastebloomapplication.MealType;
+import jakarta.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +18,9 @@ public class Recipe {
     private String description;
     private String ingredients;
     private String instructions;
+
+    @Enumerated(EnumType.STRING)
+    private MealType mealType;
 
 
 

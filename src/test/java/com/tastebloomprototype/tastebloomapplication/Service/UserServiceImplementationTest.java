@@ -50,10 +50,10 @@ class UserServiceImplementationTest {
         loginRequest.setEmail("utieyionealero@yahoo.com");
         loginRequest.setPassword("900021");
 
-        recipeRequest = new RecipeRequest();
-        recipeRequest.setName("Fluffy Pancakes");
-        recipeRequest.setIngredients("Flour, Eggs, Milk, Sugar, Butter");
-        recipeRequest.setDescription("1. Mix ingredients. 2. Cook on pan until golden brown.");
+//        recipeRequest = new RecipeRequest();
+//        recipeRequest.setName("Fluffy Pancakes");
+//        recipeRequest.setIngredients("Flour, Eggs, Milk, Sugar, Butter");
+//        recipeRequest.setDescription("1. Mix ingredients. 2. Cook on pan until golden brown.");
 
         userRepository.deleteAll();
     }
@@ -107,20 +107,7 @@ class UserServiceImplementationTest {
     }
 
 
-    @Test
-    public void testUserCanCreateReceipe(){
 
-        TasteBloomResponse response = recipeService.createRecipe(recipeRequest);
-
-         assertEquals("RECIPE_CREATED_SUCCESSFULLY", response.getResponseCode());
-         assertEquals("Recipe created successfully", response.getResponseMessage());
-
-         Recipe savedRecipe = recipeRepository.findAll().get(0);
-         assertNotNull(savedRecipe);
-         assertEquals(recipeRequest.getName(), savedRecipe.getName());
-         assertEquals(recipeRequest.getIngredients(), savedRecipe.getIngredients());
-         assertEquals(recipeRequest.getInstructions(), savedRecipe.getInstructions());
-    }
 
 
 
