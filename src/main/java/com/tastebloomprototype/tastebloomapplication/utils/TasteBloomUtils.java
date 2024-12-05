@@ -18,5 +18,9 @@ public class TasteBloomUtils {
 
     public static final String Recipe_Updated_Message = "Recipe updated successfully";
 
+    public static final String Recipe_Deleted_code = "05";
+
+    public static final String Recipe_Deleted_Message = "All recipes deleted successfully";
+
 
 }

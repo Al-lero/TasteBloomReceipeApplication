@@ -7,9 +7,13 @@ import com.tastebloomprototype.tastebloomapplication.Dto.response.TasteBloomResp
 import com.tastebloomprototype.tastebloomapplication.MealType;
 import com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils.Recipe_Deleted_Message;
+import static com.tastebloomprototype.tastebloomapplication.utils.TasteBloomUtils.Recipe_Deleted_code;
 
 @Service
 public class RecipeServiceImplementation implements RecipeService {
@@ -56,5 +60,12 @@ public class RecipeServiceImplementation implements RecipeService {
         return recipeRepository.findAll();
     }
 
-
+    @Override
+    public TasteBloomResponse delete() {
+        recipeRepository.deleteAll();
+        return TasteBloomResponse.builder()
+                .responseCode(Recipe_Deleted_code)
+                .responseMessage(Recipe_Deleted_Message)
+                .build();
+    }
 }
