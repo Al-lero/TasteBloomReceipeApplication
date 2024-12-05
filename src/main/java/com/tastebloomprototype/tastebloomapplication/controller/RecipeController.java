@@ -35,4 +35,9 @@ public class RecipeController {
         return recipeService.getAllRecipes();
 
     }
+
+    @DeleteMapping
+    public TasteBloomResponse delete() {
+        return recipeService.delete();
+    }
 }
